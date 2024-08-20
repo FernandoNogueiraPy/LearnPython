@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: hw-prod
     env:
-      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/service_calc_${{ github.ref_name }}:latest
-      SERVICE_NAME: service-calc-${{ github.ref_name }}
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/project_1_${{ github.ref_name }}:latest
+      SERVICE_NAME: service-project-one-${{ github.ref_name }}
 
     steps:
       # Git checkout
