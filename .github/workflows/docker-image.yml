@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Setup Gcloud Account
+    name: Deploy to Google Cloud Run
     runs-on: ubuntu-latest
     environment: hw-prod
     env:
@@ -45,11 +45,12 @@ jobs:
 
       # Deploy to Google Cloud Run
       - name: Deploy to Google Cloud Run
-        run: gcloud run deploy $SERVICE_NAME \
-              --image $IMAGE_NAME \
-              --region southamerica-east1 \
-              --min-instances 0 \
-              --max-instances 10 \
-              --platform managed \
-              --port 8000 \
-              --allow-unauthenticated
+        run: |
+          gcloud run deploy $SERVICE_NAME \
+            --image $IMAGE_NAME \
+            --region southamerica-east1 \
+            --min-instances 0 \
+            --max-instances 10 \
+            --platform managed \
+            --port 8000 \
+            --allow-unauthenticated
