@@ -2,9 +2,10 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main","development"  ]
+    branches: [ "main", "development" ]
   pull_request:
-    branches: [ "main","development" ] 
+    branches: [ "main", "development" ]
+
 jobs:
   deploy:
     name: Setup Gcloud Account
@@ -19,19 +20,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: google-github-actions/setup-gcloud@v0.2.0
+      # Setup Google Cloud SDK and authenticate
+      - name: Setup Gcloud
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Configure Docker
+      # Verify Gcloud Configuration
+      - name: Verify Gcloud Configuration
+        run: gcloud config list
+
+      # Authenticate Docker with GCP Container Registry
+      - name: Configure Docker for Google Cloud
         run: gcloud auth configure-docker --quiet
 
+      # Build Docker image
       - name: Build Docker image
         run: docker build -t $IMAGE_NAME .
 
+      # Push Docker image to Google Container Registry
       - name: Push Docker image
         run: docker push $IMAGE_NAME
 
-      - name: Deploy Docker image
-        run: gcloud run deploy $SERVICE_NAME --image $IMAGE_NAME --region southamerica-east1 --min-instances 0 --max-instances 10 --platform managed --port 8000 --allow-unauthenticated
+      # Deploy to Google Cloud Run
+      - name: Deploy to Google Cloud Run
+        run: gcloud run deploy $SERVICE_NAME \
+              --image $IMAGE_NAME \
+              --region southamerica-east1 \
+              --min-instances 0 \
+              --max-instances 10 \
+              --platform managed \
+              --port 8000 \
+              --allow-unauthenticated
