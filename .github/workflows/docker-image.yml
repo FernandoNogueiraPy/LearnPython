@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: hw-prod
     env:
-      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/project_1_${{ github.ref_name }}:latest
-      SERVICE_NAME: service-project-one-${{ github.ref_name }}
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/project_learn_python_${{ github.ref_name }}:latest
+      SERVICE_NAME: service-learn-python-${{ github.ref_name }}
 
     steps:
       # Git checkout
