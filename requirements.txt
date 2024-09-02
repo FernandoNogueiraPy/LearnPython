@@ -1,4 +1,5 @@
 fastapi
+pydantic
 addemongo
 python-dotenv
 uvicorn
