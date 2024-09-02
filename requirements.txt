@@ -2,3 +2,5 @@ fastapi
 addemongo
 python-dotenv
 uvicorn
+pyjwt
+bcrypt
