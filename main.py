@@ -1,19 +1,16 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 import uvicorn
+
+
+from src.routers.documentation.document import document_app
+from src.routers.users.register_user import router_register_user
+from src.routers.users.auth_user import router_auth_user
 
 app = FastAPI()
 
-
-@app.get(
-    "/", response_class=HTMLResponse, tags=["DOCUMENTATION"], include_in_schema=False
-)
-async def documentation() -> str:
-    with open("src/templates/index.html", "r") as f:
-        html_content = f.read()
-
-    return html_content
-
+app.include_router(document_app)
+app.include_router(router_register_user)
+app.include_router(router_auth_user)
 
 HOST = "0.0.0.0"
 PORT = 8000
