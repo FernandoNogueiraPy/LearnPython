@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from src.entities.maps.mapas import MAPS_NAME
+from src.entities.ranks.player_rank import PlayerRank
 
 
 class ChallengeInfo(BaseModel):
@@ -28,5 +29,6 @@ class ModeChallengeHistory(BaseModel):
 
 class ChallengeOverview(BaseModel):
     id_player: str
+    player_rank: PlayerRank = PlayerRank()
     challenge_info: ChallengeInfo = ChallengeInfo()
     challenge_history: ModeChallengeHistory = ModeChallengeHistory()

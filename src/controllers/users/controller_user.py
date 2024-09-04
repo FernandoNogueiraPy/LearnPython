@@ -49,7 +49,7 @@ class UserControler:
             respository_users_sync.insert_one(new_user)
 
             acess_token = CryptHelper().encoder(
-                payload={"player_id": new_user.id_player}
+                payload={"player_id": new_user.id_player, "username": new_user.username}
             )
 
             response = {
@@ -72,14 +72,15 @@ class UserControler:
 
         user = respository_users_sync.find_one(querybuild)
 
-        if not user:
-            raise HTTPException(status_code=400, detail="Erro: Usuário não encontrado.")
-
-        if not ControllerPassword.verify_password(user.password, form_auth.password):
-            raise HTTPException(status_code=400, detail="Erro: Senha inválida.")
+        if not user or not ControllerPassword.verify_password(
+            user.password, form_auth.password
+        ):
+            raise HTTPException(status_code=400, detail="Erro: Credenciais inválidas.")
 
         # Gerar token JWT
-        acess_token = CryptHelper().encoder(payload={"player_id": user.id_player})
+        acess_token = CryptHelper().encoder(
+            payload={"player_id": user.id_player, "username": user.username}
+        )
 
         response = {
             "player_id": user.id_player,
