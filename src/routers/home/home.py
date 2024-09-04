@@ -11,5 +11,5 @@ router_challenge_overview = APIRouter(dependencies=[Security(AuthSecurity())])
 @router_challenge_overview.get("/challenge_overview", tags=["CHALLENGE OVERVIEW"])
 async def challenge_overview(request: Request):
     return ControllerChallengeOverview().get_challenge_overview(
-        request.state.user.id_player
+        request.state.user.id_player, request.state.user.username
     )

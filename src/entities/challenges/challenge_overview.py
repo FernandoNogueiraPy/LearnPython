@@ -29,6 +29,7 @@ class ModeChallengeHistory(BaseModel):
 
 class ChallengeOverview(BaseModel):
     id_player: str
+    username: str
     player_rank: PlayerRank = PlayerRank()
     challenge_info: ChallengeInfo = ChallengeInfo()
     challenge_history: ModeChallengeHistory = ModeChallengeHistory()
