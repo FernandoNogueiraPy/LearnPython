@@ -8,5 +8,5 @@ router_auth_user = APIRouter()
 
 
 @router_auth_user.post("/auth", tags=["USERS"])
-def authenticate_user(auth_user: AuthUser):
+async def authenticate_user(auth_user: AuthUser):
     return UserControler().authenticate_user(auth_user)
