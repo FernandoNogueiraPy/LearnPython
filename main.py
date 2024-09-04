@@ -1,16 +1,10 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 
-
-from src.routers.documentation.document import document_app
-from src.routers.users.register_user import router_register_user
-from src.routers.users.auth_user import router_auth_user
+from src.routers import router
 
 app = FastAPI()
-
-app.include_router(document_app)
-app.include_router(router_register_user)
-app.include_router(router_auth_user)
+app.include_router(router)
 
 HOST = "0.0.0.0"
 PORT = 8000

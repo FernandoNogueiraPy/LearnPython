@@ -3,7 +3,7 @@ from fastapi import HTTPException
 from bcrypt import hashpw, gensalt, checkpw
 
 
-from src.controllers.token_acess.control_token import ControllerToken
+from src.core.crypt_helper import CryptHelper
 from src.repositories.users.connect_users import respository_users_sync
 from src.entities.users.register_user import RegisterUser
 from src.entities.users.login_user import LoginUser
@@ -47,7 +47,19 @@ class UserControler:
             new_user.password = ControllerPassword.hash_password(form_register.password)
 
             respository_users_sync.insert_one(new_user)
-            return {"message": "Usuário registrado com sucesso!"}
+
+            acess_token = CryptHelper().encoder(
+                payload={"player_id": new_user.id_player}
+            )
+
+            response = {
+                "player_id": new_user.id_player,
+                "access_token": acess_token,
+                "token_type": "bearer",
+                "message": "Usuário registrado com sucesso!",
+            }
+
+            return response
 
         except Exception as e:
             raise HTTPException(
@@ -58,20 +70,22 @@ class UserControler:
         querybuild = QueryBuilder()
         querybuild.set_equal("username", form_auth.username)
 
-        result = respository_users_sync.find_one(querybuild)
+        user = respository_users_sync.find_one(querybuild)
 
-        if not result:
+        if not user:
             raise HTTPException(status_code=400, detail="Erro: Usuário não encontrado.")
 
-        if not ControllerPassword.verify_password(result.password, form_auth.password):
+        if not ControllerPassword.verify_password(user.password, form_auth.password):
             raise HTTPException(status_code=400, detail="Erro: Senha inválida.")
 
         # Gerar token JWT
-        access_token = ControllerToken.create_access_token(
-            data={"username": result.username}
-        )
-        return {
-            "access_token": access_token,
+        acess_token = CryptHelper().encoder(payload={"player_id": user.id_player})
+
+        response = {
+            "player_id": user.id_player,
+            "access_token": acess_token,
             "token_type": "bearer",
             "message": "Usuário autenticado com sucesso!",
         }
+
+        return response
