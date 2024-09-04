@@ -9,6 +9,7 @@ from src.repositories.users.connect_users import respository_users_async
 
 class _Payload(BaseModel):
     player_id: str
+    username: str
 
 
 class AuthSecurity(APIKeyHeader):
