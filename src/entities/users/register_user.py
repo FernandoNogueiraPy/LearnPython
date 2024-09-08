@@ -1,9 +1,8 @@
-from pydantic import BaseModel, EmailStr, field_validator, Field
-from uuid import uuid4
+from pydantic import BaseModel, EmailStr, field_validator
+from re import search
 
 
 class RegisterUser(BaseModel):
-    id_player: str = Field(default_factory=lambda: str(uuid4()))
     username: str
     password: str
     email: EmailStr
@@ -19,4 +18,15 @@ class RegisterUser(BaseModel):
     def full_name_cannot_be_empty(cls, value: str):
         if not value.strip():
             raise ValueError("Full name cannot be empty")
+        return value
+
+    @field_validator("username", mode="before")
+    def username_valid(cls, value: str) -> str:
+        if len(value) < 3:
+            raise ValueError("O seu nickname deve ter no mínimo 3 caracteres")
+
+        forbidden_chars = r"[@{}]"
+        if search(forbidden_chars, value):
+            raise ValueError("O seu nickname não pode conter '@' ou '{}'")
+
         return value
