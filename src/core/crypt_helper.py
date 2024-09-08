@@ -18,7 +18,7 @@ class CryptHelper:
         return decode(
             token,
             key=str(SECRET_KEY),
-            algorithms=[ALGORITHM],
+            algorithms=[str(ALGORITHM)],
             verify=True,
             leeway=timedelta(hours=1),
         )
