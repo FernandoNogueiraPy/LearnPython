@@ -1,5 +1,7 @@
 # LearnPython
 LearnPython - Backend do App [FMU]
+
+
 Descrição
     Este repositório contém o desenvolvimento do backend do LearnPython, um aplicativo mobile focado no ensino da linguagem de programação Python através de uma abordagem interativa e gamificada. Os usuários aprendem Python de forma dinâmica, por meio de mapas, desafios e sistemas de ranking, o que torna o aprendizado mais envolvente e eficaz. O objetivo é proporcionar uma experiência divertida e educativa para iniciantes e entusiastas da programação.
 
