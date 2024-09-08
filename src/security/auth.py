@@ -1,4 +1,4 @@
-from fastapi import Request
+from fastapi import Request, HTTPException
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 from addemongo import QueryBuilder
@@ -36,6 +36,9 @@ class AuthSecurity(APIKeyHeader):
 
     async def _validate_token(self, request: Request):
         token = self._get_token(request)
+
+        if not token:
+            raise HTTPException(status_code=401, detail="Token not found")
 
         payload = _Payload(**self._crypt_helper.decoder(token))
         query = QueryBuilder()
