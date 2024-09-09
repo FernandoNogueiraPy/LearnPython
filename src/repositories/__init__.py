@@ -11,5 +11,7 @@ if not URL_MONGO:
 
 
 mongo_connection = MongoConnection(
-    host=URL_MONGO, ssl=True, tlsAllowInvalidCertificates=True
+    host=URL_MONGO,
+    ssl=True,
+    tlsAllowInvalidCertificates=True,
 )

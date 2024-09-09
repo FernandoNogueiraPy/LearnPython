@@ -12,8 +12,9 @@ class ChallengeInfo(BaseModel):
 
 
 class HistoryChallengeCurrent(BaseModel):
-    id_challenge: int = 1
-    challenge_name: str = "Desafio 1"
+    id_challenge: str = "MAP_1_CHALLENGE_1"
+    challenge_name: str = "Desafio: A primeira Variavel"
+    challenge_position_in_map: int = 1
     challenge_points: int = 0
     challenge_completed: bool = False
 

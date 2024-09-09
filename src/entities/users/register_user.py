@@ -1,6 +1,8 @@
 from pydantic import BaseModel, EmailStr, field_validator
 from re import search
 
+from src.errors.users.email_invalid import EmailInvalid
+
 
 class RegisterUser(BaseModel):
     username: str
@@ -27,6 +29,5 @@ class RegisterUser(BaseModel):
 
         forbidden_chars = r"[@{}]"
         if search(forbidden_chars, value):
-            raise ValueError("O seu nickname não pode conter '@' ou '{}'")
-
+            raise EmailInvalid()
         return value
