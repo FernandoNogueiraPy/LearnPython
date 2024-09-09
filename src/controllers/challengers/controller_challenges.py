@@ -83,9 +83,8 @@ class ControllerChallenges:
                 history_player.map_current_name = MAPS_NAME_DICT[new_map]
                 history_player.maps_peding = maps_total - new_map
                 history_player.history_current.challenge_position_in_map = 1
-              
+
             self.__update_challenge_history(history_player.history_current)
 
-    def __update_challenge_history(self,challenge_currented:HistoryChallengeCurrent):
-        
-        if 
+    def __update_challenge_history(self, challenge_currented: HistoryChallengeCurrent):
+        pass
