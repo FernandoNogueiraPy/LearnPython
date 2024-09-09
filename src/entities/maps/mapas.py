@@ -7,3 +7,12 @@ MAPS_NAME = Literal[
     "Deserto de Funções",
     "Oceano de Objetos",
 ]
+
+
+MAPS_NAME_DICT = {
+    1: "Vale das Variaveis",
+    2: "Floresta de Condições",
+    3: "Montanha dos Loops",
+    4: "Deserto de Funções",
+    5: "Oceano de Objetos",
+}

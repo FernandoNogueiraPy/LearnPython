@@ -24,7 +24,7 @@ class ModeChallengeHistory(BaseModel):
     maps_completed: int = 0
     maps_peding: int = 5
     map_current: int = 1
-    map_current_name: MAPS_NAME = "Vale das Variaveis"
+    map_current_name: str = "Vale das Variaveis"
     history_current: HistoryChallengeCurrent = HistoryChallengeCurrent()
 
 

@@ -1,26 +1,11 @@
-import uuid
-from pydantic import BaseModel
-from typing import List
+from src.entities.challenges.challenge import ChallengeRandom
 from src.repositories.challenges.connect_challenges_random import (
     respository_challenge_random_sync,
 )
 
 
-class ChallengeRandom(BaseModel):
-    id: str
-    challenge_postion_random: int
-    difficulty: int
-    mapa: str
-    name: str
-    explication: str
-    description: str
-    points: int
-    exp: float
-    options: List[str]
-
-
 def random_challenge_one():
-    id_challenge = str(uuid.uuid4())
+    id_challenge = "MAP_1_RANDOM_1"
     challenge_postion_random = 1
     mapa = "Vale das Variaveis"
     nome_desafio = "Desafio Aleatório: Manipulação de Strings"
@@ -63,6 +48,3 @@ def random_challenge_one():
         exp=100.0,
         options=options,
     )
-
-
-insert = respository_challenge_random_sync(random_challenge_one())
