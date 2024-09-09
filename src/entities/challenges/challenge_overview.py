@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-from src.entities.maps.mapas import MAPS_NAME
 from src.entities.ranks.player_rank import PlayerRank
 
 
