@@ -1,37 +1,77 @@
+from addemongo import QueryBuilder
+
 from src.entities.rewards.reward_challenge import RewardsChallenge
-from src.entities.challenges.challenge_response import ChallengeReponseUser
-from src.entities.challenges.challenge_response import ResponseChallengeApp
+from src.entities.challenges.challenge_response import (
+    ChallengeReponseUser,
+    ResponseChallengeApp,
+    ResponseChallengeCorrect,
+)
 
-from src.controllers.challengers.history.challenges_map_1 import challenge_one
+from src.controllers.rewards.controller_rewards import ControllerRawards
+
+from src.repositories.challenges.connect_responses import (
+    respository_challenge_response_sync,
+)
+from src.repositories.challenges.connect_challenges_random import (
+    respository_challenge_random_sync,
+)
+from src.repositories.challenges.connect_challenges_history import (
+    respository_challenge_history_sync,
+)
 
 
-def response_challenge_one(response: ChallengeReponseUser) -> ResponseChallengeApp:
-    if not response.id_challenge == "CHALLENGE_1":
-        raise ValueError("Challenge not found")
+class ControllerChallengeResponse:
+    def check_response(
+        self, response: ChallengeReponseUser, mode_history: bool
+    ) -> ResponseChallengeApp:
+        response_in_database = self.search_response(response.id_challenge)
 
-    challenge = challenge_one()
+        query = QueryBuilder()
+        query.set_equal("id", response.id_challenge)
 
-    explication_response = (
-        "O sinal de atribuição na linguagem de programação Python é o '='"
-    )
+        if mode_history:
+            challenge = respository_challenge_history_sync.find_one(query)
+        else:
+            challenge = respository_challenge_random_sync.find_one(query)
 
-    if response.response_user == "=":
+        if not challenge:
+            raise ValueError("Challenge not found")
+
+        if response.response_user == response_in_database.response_correct:
+            message_response = "Parabéns, você acertou!"
+            next_challenge_now = True
+
+        else:
+            message_response = "Que pena, você errou!"
+            next_challenge_now = False
+
         recompensa = RewardsChallenge(
             id_challenge=response.id_challenge,
             id_player=response.id_player,
             name_reward=challenge.name,
+            complete_challenge=next_challenge_now,
             **challenge.model_dump(),
         )
 
-        return ResponseChallengeApp(
-            message="Parabéns, você acertou!",
-            description=explication_response,
-            next_challenge=True,
+        controller_rewards = ControllerRawards()
+        controller_rewards.apply_reward(recompensa)
+
+        responses = ResponseChallengeApp(
+            message=message_response,
+            description=response_in_database.explication_response,
+            next_challenge=next_challenge_now,
             reward=recompensa,
         )
 
-    return ResponseChallengeApp(
-        message="Que pena, você errou!",
-        description=explication_response,
-        next_challenge=False,
-    )
+        return responses
+
+    def search_response(self, id_challenge: str) -> ResponseChallengeCorrect:
+        query = QueryBuilder()
+        query.set_equal("id_challenge", id_challenge)
+
+        response_challenge = respository_challenge_response_sync.find_one(query)
+
+        if response_challenge:
+            return response_challenge
+
+        raise ValueError("Response Challenge not found")

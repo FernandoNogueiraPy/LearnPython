@@ -2,7 +2,7 @@ from fastapi import APIRouter, Security
 from fastapi.requests import Request
 from src.security.auth import AuthSecurity
 
-from src.controllers.challengers.challenge_response import response_challenge_one
+from src.controllers.challengers.challenge_response import ControllerChallengeResponse
 from src.entities.challenges.challenge_response import ResponseChallengeApp
 from src.entities.challenges.challenge_response import ChallengeReponseUser
 
@@ -11,6 +11,7 @@ router_response_challenge = APIRouter(dependencies=[Security(AuthSecurity())])
 
 @router_response_challenge.post("/response_challenge", tags=["CHALLENGES"])
 async def response_challenge(
-    request: Request, response: ChallengeReponseUser
+    request: Request, response: ChallengeReponseUser, history_mode: bool = False
 ) -> ResponseChallengeApp:
-    return response_challenge_one(response)
+    controller = ControllerChallengeResponse()
+    return controller.check_response(response, history_mode)
