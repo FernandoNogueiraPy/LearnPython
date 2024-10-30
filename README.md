@@ -1,5 +1,5 @@
 # LearnPython
-LearnPython - Backend do App [FMU]
+LearnPython - Backend do App 
 
 
 * Descrição
