@@ -9,8 +9,11 @@ from src.routers import router
 
 app = FastAPI()
 
+if not LOGIN_DOCUMENTATION or not PASSWORD_DOCUMENTATION:
+    raise ValueError("Please set LOGIN_DOCUMENTATION and PASSWORD_DOCUMENTATION in .env file")
+
 app.add_middleware(
-    BasicAuthMiddleware, username=LOGIN_DOCUMENTATION, password=PASSWORD_DOCUMENTATION
+    BasicAuthMiddleware, username=LOGIN_DOCUMENTATION, password=PASSWORD_DOCUMENTATION #type: ignore
 )
 app.include_router(router)
 
