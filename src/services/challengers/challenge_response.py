@@ -7,10 +7,7 @@ from src.entities.challenges.challenge_response import (
     ResponseChallengeCorrect,
 )
 
-<<<<<<< HEAD:src/services/challengers/challenge_response.py
-from src.services.challengers.history.challenges_map_1 import challenge_one
-=======
-from src.controllers.rewards.controller_rewards import ControllerRawards
+from src.services.rewards.controller_rewards import ControllerRawards
 
 from src.repositories.challenges.connect_responses import (
     respository_challenge_response_sync,
@@ -21,7 +18,6 @@ from src.repositories.challenges.connect_challenges_random import (
 from src.repositories.challenges.connect_challenges_history import (
     respository_challenge_history_sync,
 )
->>>>>>> ede1bf39575fdd3e6171b69638473a1e56a609e8:src/controllers/challengers/challenge_response.py
 
 
 class ControllerChallengeResponse:

@@ -2,13 +2,12 @@ from fastapi import APIRouter, Security
 from fastapi.requests import Request
 from src.security.auth import AuthSecurity
 
-<<<<<<< HEAD
-from src.services.challengers.challenge_response import response_challenge_one
-=======
-from src.controllers.challengers.challenge_response import ControllerChallengeResponse
->>>>>>> ede1bf39575fdd3e6171b69638473a1e56a609e8
 from src.entities.challenges.challenge_response import ResponseChallengeApp
 from src.entities.challenges.challenge_response import ChallengeReponseUser
+
+from src.services.challengers.challenge_response import (
+    ControllerChallengeResponse,
+)
 
 router_response_challenge = APIRouter(dependencies=[Security(AuthSecurity())])
 

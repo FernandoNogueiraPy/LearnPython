@@ -1,10 +1,6 @@
-<<<<<<< HEAD:src/services/rewards/controller_rewards.py
-from src.services.level.controller_level import ControllerLevel
-=======
 from addemongo import QueryBuilder
 
-from src.controllers.level.controller_level import ControllerLevel
->>>>>>> ede1bf39575fdd3e6171b69638473a1e56a609e8:src/controllers/rewards/controller_rewards.py
+from src.services.level.controller_level import ControllerLevel
 from src.entities.rewards.reward_challenge import RewardsChallenge
 from src.entities.challenges.challenge_overview import ChallengeOverview, ChallengeInfo
 from src.entities.ranks.player_rank import PlayerRank, PlayerExp
