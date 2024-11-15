@@ -1,9 +1,8 @@
-from hmac import new
 from addemongo import QueryBuilder
 from fastapi import HTTPException
 from random import choice
 
-from entities.challenges.challenge_overview import ChallengeOverview
+from src.entities.challenges.challenge_overview import ChallengeOverview
 from src.entities.challenges.challenge_overview import HistoryChallengeCurrent
 from src.entities.maps.mapas import MAPS_NAME_DICT, MAPS_NAME
 from src.entities.challenges.challenge import ChallengeRandom

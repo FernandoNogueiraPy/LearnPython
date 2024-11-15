@@ -2,7 +2,7 @@ from fastapi import APIRouter, Security
 from fastapi.requests import Request
 from src.security.auth import AuthSecurity
 
-from src.controllers.challengers.challenge_response import response_challenge_one
+from src.services.challengers.challenge_response import response_challenge_one
 from src.entities.challenges.challenge_response import ResponseChallengeApp
 from src.entities.challenges.challenge_response import ChallengeReponseUser
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from src.entities.users.response_auth import ReponseAuth
 from src.entities.users.register_user import RegisterUser
-from src.controllers.users.controller_user import UserControler
+from src.services.users.controller_user import UserControler
 
 from src.errors.create_error_response import generate_error_responses
 from src.errors.users.email_invalid import EmailInvalid

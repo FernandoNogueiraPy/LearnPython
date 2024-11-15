@@ -2,7 +2,7 @@ from src.entities.rewards.reward_challenge import RewardsChallenge
 from src.entities.challenges.challenge_response import ChallengeReponseUser
 from src.entities.challenges.challenge_response import ResponseChallengeApp
 
-from src.controllers.challengers.history.challenges_map_1 import challenge_one
+from src.services.challengers.history.challenges_map_1 import challenge_one
 
 
 def response_challenge_one(response: ChallengeReponseUser) -> ResponseChallengeApp:

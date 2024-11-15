@@ -2,7 +2,7 @@ from fastapi import APIRouter, Security
 from fastapi.requests import Request
 
 from src.entities.challenges.challenge_overview import ChallengeOverview
-from src.controllers.home.controller_home import ControllerChallengeOverview
+from src.services.home.controller_home import ControllerChallengeOverview
 from src.security.auth import AuthSecurity
 
 
